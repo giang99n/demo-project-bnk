@@ -1,4 +1,4 @@
-package com.example.demobnk
+package com.example.demo_manager
 
 import io.flutter.embedding.android.FlutterActivity
 

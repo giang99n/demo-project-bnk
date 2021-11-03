@@ -1,4 +1,4 @@
-# demobnk
+# demo_manager
 
 A new Flutter project.
 

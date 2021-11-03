@@ -1,6 +1,6 @@
 {
-    "name": "demobnk",
-    "short_name": "demobnk",
+    "name": "demo_manager",
+    "short_name": "demo_manager",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
