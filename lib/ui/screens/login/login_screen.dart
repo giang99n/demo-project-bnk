@@ -1,4 +1,4 @@
-import 'package:demo_manager/Screens/Login/components/body.dart';
+import 'package:demo_manager/ui/Screens/Login/components/body.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatelessWidget {

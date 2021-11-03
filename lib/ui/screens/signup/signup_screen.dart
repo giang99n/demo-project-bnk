@@ -1,4 +1,4 @@
-import 'package:demo_manager/Screens/Signup/components/body.dart';
+import 'package:demo_manager/ui/Screens/Signup/components/body.dart';
 import 'package:flutter/material.dart';
 
 class SignUpScreen extends StatelessWidget {

@@ -1,4 +1,4 @@
-import 'package:demo_manager/constants.dart';
+import 'package:demo_manager/configs/colors.dart';
 import 'package:flutter/material.dart';
 
 class OrDivider extends StatelessWidget {

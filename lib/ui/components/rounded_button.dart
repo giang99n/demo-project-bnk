@@ -1,4 +1,6 @@
-import 'package:demo_manager/constants.dart';
+import 'dart:ffi';
+
+import 'package:demo_manager/configs/colors.dart';
 import 'package:flutter/material.dart';
 
 class RoundedButton extends StatelessWidget {

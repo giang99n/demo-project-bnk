@@ -1,5 +1,5 @@
-import 'package:demo_manager/components/text_field_container.dart';
-import 'package:demo_manager/constants.dart';
+import 'package:demo_manager/ui/components/text_field_container.dart';
+import 'package:demo_manager/configs/colors.dart';
 import 'package:flutter/material.dart';
 
 class RoundedInputField extends StatelessWidget {
