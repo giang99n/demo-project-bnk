@@ -1,7 +1,7 @@
 class AppConstants {
   AppConstants._();
   static const String apiKey="";
-  static const String baseUrl="";
+  static const String baseUrl="http://192.168.0.46:5000/api/v1/";
 
   // Dio
   static const int receiveTimeout = 10000;

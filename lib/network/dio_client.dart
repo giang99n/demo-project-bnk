@@ -62,7 +62,7 @@ class RestClient {
         onSendProgress: onSendProgress,
         onReceiveProgress: onReceiveProgress,
       );
-      return response.data;
+      return response;
     } on Exception {
       rethrow;
     }
