@@ -1,7 +1,6 @@
 import 'package:demo_manager/configs/colors.dart';
 import 'package:demo_manager/ui/Screens/Login/login_screen.dart';
 import 'package:demo_manager/ui/Screens/Signup/signup_screen.dart';
-import 'package:demo_manager/ui/components/rounded_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 class WelcomeScreen extends StatelessWidget {
@@ -45,33 +44,61 @@ class WelcomeScreen extends StatelessWidget {
                     height: size.height * 0.4,
                   ),
                   SizedBox(height: size.height * 0.05),
-                  RoundedButton(
-                    text: "LOGIN",
-                    press: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return LoginScreen();
-                          },
+                  Container(
+                    margin: EdgeInsets.symmetric(vertical: 10),
+                    width: size.width * 0.8,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(29),
+                      child: ElevatedButton(
+                        child: Text(
+                          "LOGIN",
+                          style: TextStyle(color: Colors.white),
                         ),
-                      );
-                    },
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return LoginScreen();
+                              },
+                            ),
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                            primary: kPrimaryColor,
+                            padding: EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+                            textStyle: TextStyle(
+                                color: Colors.white, fontSize: 14, fontWeight: FontWeight.w500)),
+                      ),
+                    ),
                   ),
-                  RoundedButton(
-                    text: "SIGN UP",
-                    color: kPrimaryLightColor,
-                    textColor: Colors.black,
-                    press: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return SignUpScreen();
-                          },
+                  Container(
+                    margin: EdgeInsets.symmetric(vertical: 10),
+                    width: size.width * 0.8,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(29),
+                      child: ElevatedButton(
+                        child: Text(
+                          "SIGN UP",
+                          style: TextStyle(color: Colors.white),
                         ),
-                      );
-                    },
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return SignUpScreen();
+                              },
+                            ),
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                            primary: kPrimaryColor,
+                            padding: EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+                            textStyle: TextStyle(
+                                color: Colors.white, fontSize: 14, fontWeight: FontWeight.w500)),
+                      ),
+                    ),
                   ),
                 ],
               ),

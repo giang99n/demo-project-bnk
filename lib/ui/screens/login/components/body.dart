@@ -1,6 +1,7 @@
 import 'package:demo_manager/configs/colors.dart';
 import 'package:demo_manager/ui/Screens/Login/components/background.dart';
 import 'package:demo_manager/ui/Screens/Signup/signup_screen.dart';
+import 'package:demo_manager/ui/components/text_field_container.dart';
 import 'package:demo_manager/ui/screens/home/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -30,33 +31,37 @@ class Body extends StatelessWidget {
               height: size.height * 0.35,
             ),
             SizedBox(height: size.height * 0.03),
-            TextField(
-              onChanged: (value){},
-              cursorColor: kPrimaryColor,
-              decoration: InputDecoration(
-                icon: Icon(
-                  Icons.person,
-                  color: kPrimaryColor,
+            TextFieldContainer(
+              child: TextField(
+                onChanged: (value){},
+                cursorColor: kPrimaryColor,
+                decoration: InputDecoration(
+                  icon: Icon(
+                    Icons.person,
+                    color: kPrimaryColor,
+                  ),
+                  hintText: "Email",
+                  border: InputBorder.none,
                 ),
-                hintText: "Email",
-                border: InputBorder.none,
               ),
             ),
-            TextField(
-              obscureText: true,
-              onChanged: (value){},
-              cursorColor: kPrimaryColor,
-              decoration: InputDecoration(
-                hintText: "Mật khẩu",
-                icon: Icon(
-                  Icons.lock,
-                  color: kPrimaryColor,
+            TextFieldContainer(
+              child: TextField(
+                obscureText: true,
+                onChanged: (value){},
+                cursorColor: kPrimaryColor,
+                decoration: InputDecoration(
+                  hintText: "Mật khẩu",
+                  icon: Icon(
+                    Icons.lock,
+                    color: kPrimaryColor,
+                  ),
+                  suffixIcon: Icon(
+                    Icons.visibility,
+                    color: kPrimaryColor,
+                  ),
+                  border: InputBorder.none,
                 ),
-                suffixIcon: Icon(
-                  Icons.visibility,
-                  color: kPrimaryColor,
-                ),
-                border: InputBorder.none,
               ),
             ),
             Container(
