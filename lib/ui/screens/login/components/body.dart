@@ -1,9 +1,7 @@
 import 'package:demo_manager/configs/colors.dart';
 import 'package:demo_manager/ui/Screens/Login/components/background.dart';
 import 'package:demo_manager/ui/Screens/Signup/signup_screen.dart';
-import 'package:demo_manager/ui/components/rounded_button.dart';
-import 'package:demo_manager/ui/components/rounded_input_field.dart';
-import 'package:demo_manager/ui/components/rounded_password_field.dart';
+import 'package:demo_manager/ui/screens/home/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -32,17 +30,58 @@ class Body extends StatelessWidget {
               height: size.height * 0.35,
             ),
             SizedBox(height: size.height * 0.03),
-            RoundedInputField(
-              hintText: "Số điện thoại",
-              onChanged: (value) {},
+            TextField(
+              onChanged: (value){},
+              cursorColor: kPrimaryColor,
+              decoration: InputDecoration(
+                icon: Icon(
+                  Icons.person,
+                  color: kPrimaryColor,
+                ),
+                hintText: "Email",
+                border: InputBorder.none,
+              ),
             ),
-            RoundedPasswordField(
-              hintText: "Mật khẩu",
-              onChanged: (value) {},
+            TextField(
+              obscureText: true,
+              onChanged: (value){},
+              cursorColor: kPrimaryColor,
+              decoration: InputDecoration(
+                hintText: "Mật khẩu",
+                icon: Icon(
+                  Icons.lock,
+                  color: kPrimaryColor,
+                ),
+                suffixIcon: Icon(
+                  Icons.visibility,
+                  color: kPrimaryColor,
+                ),
+                border: InputBorder.none,
+              ),
             ),
-            RoundedButton(
-              text: "LOGIN",
-              press: () {},
+            Container(
+              margin: EdgeInsets.symmetric(vertical: 10),
+              width: size.width * 0.8,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(29),
+                child: ElevatedButton(
+                  child: Text(
+                    "LOGIN",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => HomeScreen()),
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                      primary: kPrimaryColor,
+                      padding: EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+                      textStyle: TextStyle(
+                          color: Colors.white, fontSize: 14, fontWeight: FontWeight.w500)),
+                ),
+              ),
             ),
             SizedBox(height: size.height * 0.03),
             Row(

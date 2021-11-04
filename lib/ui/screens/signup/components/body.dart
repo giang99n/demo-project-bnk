@@ -3,9 +3,6 @@ import 'package:demo_manager/ui/Screens/Login/login_screen.dart';
 import 'package:demo_manager/ui/Screens/Signup/components/background.dart';
 import 'package:demo_manager/ui/Screens/Signup/components/or_divider.dart';
 import 'package:demo_manager/ui/Screens/Signup/components/social_icon.dart';
-import 'package:demo_manager/ui/components/rounded_button.dart';
-import 'package:demo_manager/ui/components/rounded_input_field.dart';
-import 'package:demo_manager/ui/components/rounded_password_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -33,21 +30,67 @@ class Body extends StatelessWidget {
               height: size.height * 0.35,
             ),
             SizedBox(height: size.height * 0.03),
-            RoundedInputField(
-              hintText: "Email",
-              onChanged: (value) {},
+            TextField(
+              cursorColor: kPrimaryColor,
+              decoration: InputDecoration(
+                icon: Icon(
+                  Icons.person,
+                  color: kPrimaryColor,
+                ),
+                hintText: "Email",
+                border: InputBorder.none,
+              ),
             ),
-            RoundedPasswordField(
-              hintText: "Mật khẩu",
-              onChanged: (value) {},
+            TextField(
+              obscureText: true,
+              cursorColor: kPrimaryColor,
+              decoration: InputDecoration(
+                hintText: "Mật khẩu",
+                icon: Icon(
+                  Icons.lock,
+                  color: kPrimaryColor,
+                ),
+                suffixIcon: Icon(
+                  Icons.visibility,
+                  color: kPrimaryColor,
+                ),
+                border: InputBorder.none,
+              ),
             ),
-            RoundedPasswordField(
-              hintText: "Nhập lại mật khẩu",
-              onChanged: (value) {},
+            TextField(
+              obscureText: true,
+              cursorColor: kPrimaryColor,
+              decoration: InputDecoration(
+                hintText: "Nhập lại mật khẩu",
+                icon: Icon(
+                  Icons.lock,
+                  color: kPrimaryColor,
+                ),
+                suffixIcon: Icon(
+                  Icons.visibility,
+                  color: kPrimaryColor,
+                ),
+                border: InputBorder.none,
+              ),
             ),
-            RoundedButton(
-              text: "SIGNUP",
-              press: () {},
+            Container(
+              margin: EdgeInsets.symmetric(vertical: 10),
+              width: size.width * 0.8,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(29),
+                child: ElevatedButton(
+                  child: Text(
+                    "SIGN UP",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  onPressed: (){},
+                  style: ElevatedButton.styleFrom(
+                      primary: kPrimaryColor,
+                      padding: EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+                      textStyle: TextStyle(
+                          color: Colors.white, fontSize: 14, fontWeight: FontWeight.w500)),
+                ),
+              ),
             ),
             SizedBox(height: size.height * 0.03),
             Row(
@@ -74,7 +117,36 @@ class Body extends StatelessWidget {
                 )
               ],
             ),
-            OrDivider(),
+            Container(
+              margin: EdgeInsets.symmetric(vertical: size.height * 0.02),
+              width: size.width * 0.8,
+              child: Row(
+                children: <Widget>[
+                  Expanded(
+                    child: Divider(
+                      color: Color(0xFFD9D9D9),
+                      height: 1.5,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: Text(
+                      "OR",
+                      style: TextStyle(
+                        color: kPrimaryColor,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Divider(
+                      color: Color(0xFFD9D9D9),
+                      height: 1.5,
+                    ),
+                  ),
+                ],
+              ),
+            ),
             Padding(
               padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
               child: Row(
