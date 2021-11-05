@@ -35,6 +35,17 @@ class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+
+    final msg = BlocBuilder<LoginBloc, LoginState>(builder: (context, state) {
+      if (state is LoginLoadingState){
+        return const CircularProgressIndicator();
+      } else if (state is LoginErrorState) {
+        return Text(state.message);
+      } else {
+        return Container();
+      }
+    });
+
     return Scaffold(
       body: BlocListener<LoginBloc, LoginState>(
         listener: (context, state) {
@@ -57,7 +68,7 @@ class _BodyState extends State<Body> {
                 SizedBox(height: size.height * 0.03),
                 SvgPicture.asset(
                   "assets/icons/login.svg",
-                  height: size.height * 0.35,
+                  height: size.height * 0.3,
                 ),
                 SizedBox(height: size.height * 0.03),
                 TextFieldContainer(
@@ -118,6 +129,8 @@ class _BodyState extends State<Body> {
                   ),
                 ),
                 SizedBox(height: size.height * 0.03),
+                msg,
+                SizedBox(height: size.height * 0.03),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
@@ -148,5 +161,7 @@ class _BodyState extends State<Body> {
         ),
       ),
     );
+
+
   }
 }

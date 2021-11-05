@@ -24,7 +24,7 @@ class LoginBloc extends Bloc<LoginEvents, LoginState> {
           pref.setString('status', data!.status.toString() ?? "" );
           yield LoginSuccessState();
         }else if(data.status == 0){
-          LoginErrorState( message: 'data.message');
+          yield LoginErrorState( message: data.message ?? "đăng nhập thất bại");/////////////////////////
         }
       }else{
         print('data null');
