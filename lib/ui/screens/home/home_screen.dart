@@ -1,31 +1,36 @@
 import 'dart:ui';
 
+import 'package:demo_manager/blocs/profile/profile_bloc.dart';
 import 'package:demo_manager/configs/colors.dart';
+import 'package:demo_manager/models/get_user_res.dart';
 import 'package:demo_manager/network/apis.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: BuildHomeScreen());
+    return BlocProvider(
+      create: (_) => ProfileBloc()..add(ProfileEventStated()),
+      child: WillPopScope(
+          onWillPop: () async => true,
+        child: Scaffold(body: BuildHomeScreen()),
+
+      ),
+    );
+    // Scaffold(body: BuildHomeScreen());
   }
 }
 
 class BuildHomeScreen extends StatefulWidget {
   const BuildHomeScreen({Key? key}) : super(key: key);
-
-
-  // BuildHomeScreen(){
-  //   Api api=new Api();
-  //   api.getUser("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MTFjYjhhMGM1NzM2ZjA4NTQxODcxNTAiLCJpYXQiOjE2MzYwODI3MTUsImV4cCI6MTYzNjY4NzUxNX0.mPjNjbe_0J9v7oMmVAAZTrv16mO3tq_qzYxcwYn2n48");
-  // }
-
   @override
   _BuildHomeScreenState createState() => _BuildHomeScreenState();
 }
 
 class _BuildHomeScreenState extends State<BuildHomeScreen> {
+  String token = '';
 
   @override
   void initState() {
@@ -69,7 +74,34 @@ class _BuildHomeScreenState extends State<BuildHomeScreen> {
   }
 
   _buildBody(BuildContext context) {
+
+    GetUserResponse userResponse;
     Size size = MediaQuery.of(context).size;
+    final getProfile = BlocBuilder<ProfileBloc, ProfileState>(builder: (context, state) {
+      if (state is ProfileLoadingState){
+        return const CircularProgressIndicator();
+      }else if (state is ProfileSuccessState){
+        userResponse = state.user;
+        return Container(
+          alignment: Alignment.center,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(userResponse.result!.email.toString(), overflow: TextOverflow.ellipsis, style: TextStyle(fontWeight: FontWeight.bold),),
+              SizedBox(height: size.height*0.01,),
+              Text(userResponse.result!.name.toString(),overflow: TextOverflow.ellipsis, style: TextStyle(fontWeight: FontWeight.bold),),
+              SizedBox(height: size.height*0.01,),
+              Text(userResponse.result!.location.toString(),overflow: TextOverflow.ellipsis, style: TextStyle(fontWeight: FontWeight.bold),),
+
+            ],
+          ),
+        );
+      }
+      else {
+        return Container( child: Text("Profile"));
+      }
+    });
     return Container(
         constraints: BoxConstraints.expand(),
         decoration: BoxDecoration(
@@ -102,7 +134,7 @@ class _BuildHomeScreenState extends State<BuildHomeScreen> {
                           color: kPrimaryLightColor,
                           borderRadius: BorderRadius.circular(29),
                         ),
-                        child: const Text("Profile"),
+                        child: getProfile,
                       ),
                     ),
                     GestureDetector(
@@ -192,7 +224,7 @@ class _BuildHomeScreenState extends State<BuildHomeScreen> {
   void getToken() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
-      _token = (prefs.getString('token') ?? "");
+      token = (prefs.getString('token') ?? "");
     });
   }
 }

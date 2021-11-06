@@ -9,11 +9,12 @@ part 'profile_state.dart';
 
 
 class ProfileBloc extends Bloc<ProfileEvents, ProfileState> {
-  Api apiRepository;
-  ProfileBloc(ProfileState initialState,this.apiRepository ): super(initialState);
+
+  ProfileBloc(): super(ProfileLoadingState());
 
   @override
   Stream<ProfileState> mapEventToState(ProfileEvents event) async*{
+    final apiRepository = Api();
     final pref = await SharedPreferences.getInstance();
     String token = (pref.getString('token') ?? "");
     if(event is StartEvent){

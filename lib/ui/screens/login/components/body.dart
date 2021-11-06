@@ -27,7 +27,7 @@ class _BodyState extends State<Body> {
   @override
   void initState() {
     loginBloc = BlocProvider.of<LoginBloc>(context);
-    email.text = 'a1l22@gmail.com';
+    email.text = 'alo112233@gmail.com';
     password.text = 'alo123';
     super.initState();
   }

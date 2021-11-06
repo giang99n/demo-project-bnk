@@ -1,5 +1,4 @@
 
-
 import 'dart:convert';
 
 GetUserResponse getUserResponseFromJson(String str) => GetUserResponse.fromJson(json.decode(str));
@@ -31,6 +30,7 @@ class Result {
     this.id,
     this.createdAt,
     this.email,
+    this.location,
     this.name,
     this.updatedAt,
   });
@@ -38,6 +38,7 @@ class Result {
   String? id;
   DateTime? createdAt;
   String? email;
+  String? location;
   String? name;
   DateTime? updatedAt;
 
@@ -45,6 +46,7 @@ class Result {
     id: json["id"],
     createdAt: DateTime.parse(json["created_at"]),
     email: json["email"],
+    location: json["location"],
     name: json["name"],
     updatedAt: DateTime.parse(json["updated_at"]),
   );
@@ -53,6 +55,7 @@ class Result {
     "id": id,
     "created_at": createdAt!.toIso8601String(),
     "email": email,
+    "location": location,
     "name": name,
     "updated_at": updatedAt!.toIso8601String(),
   };

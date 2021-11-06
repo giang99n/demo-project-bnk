@@ -8,6 +8,6 @@ abstract class ProfileEvents extends Equatable {
 class StartEvent extends ProfileEvents {}
 
 class ProfileEventStated extends ProfileEvents {
-  final String token;
-  ProfileEventStated({required this.token});
+  // final String token;
+  // ProfileEventStated({required this.token});
 }
