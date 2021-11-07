@@ -18,7 +18,8 @@ class ProfileBloc extends Bloc<ProfileEvents, ProfileState> {
     final pref = await SharedPreferences.getInstance();
     String token = (pref.getString('token') ?? "");
     if(event is StartEvent){
-      yield ProfileInitState();
+     // yield ProfileInitState();
+      yield ProfileLoadingState();
     }else if(event is ProfileEventStated){
       yield ProfileLoadingState();
       var data = await apiRepository.getUser(token);
@@ -29,13 +30,8 @@ class ProfileBloc extends Bloc<ProfileEvents, ProfileState> {
          //////////////////////
         }
       }else{
-        print('data null');
+        yield ProfileErrorState();
       }
-
-
     }
   }
-
-
-
 }

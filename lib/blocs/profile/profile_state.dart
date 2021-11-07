@@ -10,12 +10,10 @@ class ProfileState extends Equatable{
 class ProfileInitState extends ProfileState{}
 
 class ProfileLoadingState extends ProfileState{}
-
+class ProfileErrorState extends ProfileState{}
 class ProfileSuccessState extends ProfileState{
   final GetUserResponse user;
-
   ProfileSuccessState({required this.user});
-
   @override
   List<Object> get props => [user];
 }
