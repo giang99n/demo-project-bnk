@@ -7,13 +7,17 @@ String SignupResponseToJson(SignupResponse data) => json.encode(data.toJson());
 class SignupResponse {
   Result ?result;
   int ?status;
+  int ?code;
+  String ?message;
 
-  SignupResponse({this.result, this.status});
+  SignupResponse({this.result, this.status, this.code, this.message});
 
   SignupResponse.fromJson(Map<String, dynamic> json) {
     result =
     json['result'] != null ? new Result.fromJson(json['result']) : null;
     status = json['status'];
+    code = json['code'];
+    message = json['message'];
   }
 
   Map<String, dynamic> toJson() {
@@ -22,6 +26,8 @@ class SignupResponse {
       data['result'] = this.result!.toJson();
     }
     data['status'] = this.status;
+    data['code'] = this.code;
+    data['message'] = this.message;
     return data;
   }
 }
@@ -53,6 +59,7 @@ class Result {
     return data;
   }
 }
+
 
 
 // class SignupResponse {

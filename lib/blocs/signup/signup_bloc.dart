@@ -23,7 +23,8 @@ class SignupBloc extends Bloc<SignupEvents, SignupState> {
           pref.setString('status', data!.status.toString() ?? "" );
           yield SignupSuccessState();
         }else if(data.status == 0){
-          SignupErrorState( message: 'data.message');
+          print("user exists");
+          yield SignupErrorState( message: data!.message.toString() ?? "");
         }
       }else{
         print('data null');

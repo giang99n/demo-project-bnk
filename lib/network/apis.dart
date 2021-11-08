@@ -7,16 +7,18 @@ import 'package:dio/dio.dart';
 
 import 'dio_client.dart';
 
-class Api{
+class Api {
   RestClient restClient = RestClient(Dio());
-  Future<LoginResponse?> login( String email, String password) async{
+
+  Future<LoginResponse?> login(String email, String password) async {
     Response response;
     try {
       response = await restClient.post('auths/login',
-          data: {'email': email, 'password':password});
+          data: {'email': email, 'password': password});
       if (response.statusCode == 200) {
         return LoginResponse.fromJson(response.data);
-      } else {
+      }
+      else {
         print('There is some problem status code not 200');
       }
     } on Exception catch (e) {
@@ -24,14 +26,17 @@ class Api{
     }
     return null;
   }
-  Future<SignupResponse?> Signup( String name, String email, String password) async{
+
+  Future<SignupResponse?> Signup(String name, String email,
+      String password) async {
     Response response;
     try {
       response = await restClient.post('auths/register',
-          data: {'name':name, 'email': email, 'password':password});
+          data: {'name': name, 'email': email, 'password': password});
       if (response.statusCode == 200) {
         return SignupResponse.fromJson(response.data);
-      } else {
+      }
+      else {
         print('There is some problem status code not 200');
       }
     } on Exception catch (e) {
@@ -41,8 +46,7 @@ class Api{
   }
 
 
-
-  Future<GetUserResponse?> getUser( String token) async{
+  Future<GetUserResponse?> getUser(String token) async {
     Dio dio = new Dio();
     dio.options.headers["Authorization"] = "Bearer $token";
     Response response;
@@ -59,12 +63,13 @@ class Api{
     return null;
   }
 
-  Future<BillPaid?> getPaidBill( String token) async{
+  Future<BillPaid?> getPaidBill(String token) async {
     Dio dio = new Dio();
     dio.options.headers["Authorization"] = "Bearer $token";
     Response response;
     try {
-      response = await dio.get('http://192.168.1.44:5000/api/v1//auths/bill/paid',);
+      response =
+      await dio.get('http://192.168.1.44:5000/api/v1//auths/bill/paid',);
       if (response.statusCode == 200) {
         return BillPaid.fromJson(response.data);
       } else {
@@ -76,12 +81,13 @@ class Api{
     return null;
   }
 
-  Future<BillUnpaid?> getUnpaidBill( String token) async{
+  Future<BillUnpaid?> getUnpaidBill(String token) async {
     Dio dio = new Dio();
     dio.options.headers["Authorization"] = "Bearer $token";
     Response response;
     try {
-      response = await dio.get('http://192.168.1.44:5000/api/v1//auths/bill/unpaid',);
+      response =
+      await dio.get('http://192.168.1.44:5000/api/v1//auths/bill/unpaid',);
       if (response.statusCode == 200) {
         return BillUnpaid.fromJson(response.data);
       } else {
