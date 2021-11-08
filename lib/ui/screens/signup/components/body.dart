@@ -23,6 +23,8 @@ class _BodyState extends State<Body> {
   TextEditingController name = TextEditingController();
   TextEditingController password = TextEditingController();
   TextEditingController confirmPassword = TextEditingController();
+  final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
+
 
   SignupBloc? signupBloc;
   Api? api;
@@ -30,7 +32,7 @@ class _BodyState extends State<Body> {
   @override
   void initState() {
     signupBloc = BlocProvider.of<SignupBloc>(context);
-    email.text = 'a1122@gmail.com';
+    email.text = 'alo112233@gmail.com';
     password.text = 'alo123';
     confirmPassword.text = 'alo123';
     name.text = 'hello';
@@ -62,7 +64,9 @@ class _BodyState extends State<Body> {
         },
         child: Background(
           child: SingleChildScrollView(
-            child: Column(
+            child: Form(
+              key: _formkey,
+              child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Padding(
@@ -77,11 +81,20 @@ class _BodyState extends State<Body> {
                   height: size.height * 0.3,
                 ),
                 TextFieldContainer(
-
-                  child: TextField(
+                  child: TextFormField(
                     controller: name,
                     cursorColor: kPrimaryColor,
                     onChanged: (value){},
+                    validator: (String ?value){
+                      if(value!.isEmpty)
+                      {
+                        return 'Please Enter Name';
+                      }
+                      return null;
+                    },
+                    onSaved: (String ?value){
+                      name = value as TextEditingController;
+                    },
                     decoration: InputDecoration(
                       icon: Icon(
                         Icons.person,
@@ -93,10 +106,21 @@ class _BodyState extends State<Body> {
                   ),
                 ),
                 TextFieldContainer(
-                  child: TextField(
+                  child: TextFormField(
                     controller: email,
                     cursorColor: kPrimaryColor,
-                    onChanged: (value){},
+                    validator: (String ?value){
+                      if(value!.isEmpty)
+                      {
+                        return 'Please a Enter';
+                      }
+                      else if(!RegExp(r'^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)+(.)+[a-zA-Z0-9-]*$').hasMatch(value)){
+                        return 'Please a valid Email';
+                      }
+                    },
+                    onSaved: (String ?value){
+                      email = value as TextEditingController;
+                    },
                     decoration: InputDecoration(
                       icon: Icon(
                         Icons.person,
@@ -108,13 +132,22 @@ class _BodyState extends State<Body> {
                   ),
                 ),
                 TextFieldContainer(
-                  child: TextField(
+                  child: TextFormField(
                     obscureText: true,
                     controller: password,
                     onChanged: (value){},
+                    validator: (String ?value){
+                      if(value!.isEmpty)
+                      {
+                        return 'Please a Enter Password';
+                      } else if(value!.length<6){
+                        return 'password is too short ';
+                      }
+                      return null;
+                    },
                     cursorColor: kPrimaryColor,
                     decoration: InputDecoration(
-                      hintText: "Mật khẩu",
+                      hintText: "Password",
                       icon: Icon(
                         Icons.lock,
                         color: kPrimaryColor,
@@ -128,13 +161,28 @@ class _BodyState extends State<Body> {
                   ),
                 ),
                 TextFieldContainer(
-                  child: TextField(
+                  child: TextFormField(
                     controller: confirmPassword,
                     obscureText: true,
                     cursorColor: kPrimaryColor,
                     onChanged: (value){},
+                    validator: (String ?value){
+                      if(value!.isEmpty)
+                      {
+                        return 'Please re-enter password';
+                      }
+                      print(password.text);
+
+                      print(confirmPassword.text);
+
+                      if(password.text!=confirmPassword.text){
+                        return "Password does not match";
+                      }
+
+                      return null;
+                    },
                     decoration: InputDecoration(
-                      hintText: "Nhập lại mật khẩu",
+                      hintText: "Confirm Password",
                       icon: Icon(
                         Icons.lock,
                         color: kPrimaryColor,
@@ -158,18 +206,14 @@ class _BodyState extends State<Body> {
                         style: TextStyle(color: Colors.white),
                       ),
                       onPressed: (){
-                        if(name.text.isEmpty || email.text.isEmpty || password.text.isEmpty || confirmPassword.text.isEmpty ){
-                          Fluttertoast.showToast(
-                            msg: "Bạn chưa điền đủ thông tin",
-                          );
-                        } else if(confirmPassword.text != password.text ){
-                          Fluttertoast.showToast(
-                            msg: "Mật khẩu không khớp",
-                          );
-                        } else {
-                          signupBloc!.add(SignupButtonPressed(
-                              name: name.text, email: email.text, password: password.text));
-                        };
+                        if(_formkey.currentState!.validate())
+                        {
+                          print("successful");
+                          return signupBloc!.add(SignupButtonPressed(
+                              name: name.text, email: email.text, password: password.text));;
+                        }else{
+                          print("UnSuccessfull");
+                        }
                       },
                       style: ElevatedButton.styleFrom(
                           primary: kPrimaryColor,
@@ -179,6 +223,7 @@ class _BodyState extends State<Body> {
                     ),
                   ),
                 ),
+
                 msg,
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -256,6 +301,7 @@ class _BodyState extends State<Body> {
                 )
               ],
             ),
+            )
           ),
         ),
       ),

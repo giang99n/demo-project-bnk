@@ -20,8 +20,10 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   TextEditingController email =TextEditingController();
   TextEditingController password =TextEditingController();
+  final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
 
-   LoginBloc? loginBloc ;
+
+  LoginBloc? loginBloc ;
    Api? api;
 
   @override
@@ -58,7 +60,9 @@ class _BodyState extends State<Body> {
         },
         child: Background(
           child: SingleChildScrollView(
-            child: Column(
+            child: Form(
+              key: _formkey,
+              child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Text(
@@ -72,9 +76,21 @@ class _BodyState extends State<Body> {
                 ),
                 SizedBox(height: size.height * 0.03),
                 TextFieldContainer(
-                  child: TextField(
+                  child: TextFormField(
                     controller: email,
                     onChanged: (value){},
+                    validator: (String ?value){
+                      if(value!.isEmpty)
+                      {
+                        return 'Please a Enter';
+                      }
+                      else if(!RegExp(r'^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)+(.)+[a-zA-Z0-9-]*$').hasMatch(value)){
+                        return 'Please a valid Email';
+                      }
+                    },
+                    onSaved: (String ?value){
+                      email = value as TextEditingController;
+                    },
                     cursorColor: kPrimaryColor,
                     decoration: InputDecoration(
                       icon: Icon(
@@ -87,10 +103,19 @@ class _BodyState extends State<Body> {
                   ),
                 ),
                 TextFieldContainer(
-                  child: TextField(
+                  child: TextFormField(
                     controller: password,
                     obscureText: true,
                     onChanged: (value){},
+                    validator: (String ?value){
+                      if(value!.isEmpty)
+                      {
+                        return 'Please a Enter Password';
+                      } else if(value!.length<6){
+                        return 'password is too short ';
+                      }
+                      return null;
+                    },
                     cursorColor: kPrimaryColor,
                     decoration: InputDecoration(
                       hintText: "Mật khẩu",
@@ -117,8 +142,15 @@ class _BodyState extends State<Body> {
                         style: TextStyle(color: Colors.white),
                       ),
                       onPressed: () {
-                        loginBloc!.add(LoginButtonPressed(
-                            email: email.text, password: password.text));
+                        if(_formkey.currentState!.validate())
+                        {
+                          print("successful");
+                          return loginBloc!.add(LoginButtonPressed(
+                              email: email.text, password: password.text));
+                        }else{
+                          print("UnSuccessfull");
+                        }
+
                       },
                       style: ElevatedButton.styleFrom(
                           primary: kPrimaryColor,
@@ -157,6 +189,7 @@ class _BodyState extends State<Body> {
                 ),
               ],
             ),
+            )
           ),
         ),
       ),
