@@ -2,6 +2,7 @@ import 'package:demo_manager/models/get_bill_paid_res.dart';
 import 'package:demo_manager/models/get_bill_unpaid_res.dart';
 import 'package:demo_manager/models/get_user_res.dart';
 import 'package:demo_manager/models/login_res.dart';
+import 'package:demo_manager/models/signup_res.dart';
 import 'package:dio/dio.dart';
 
 import 'dio_client.dart';
@@ -15,6 +16,21 @@ class Api{
           data: {'email': email, 'password':password});
       if (response.statusCode == 200) {
         return LoginResponse.fromJson(response.data);
+      } else {
+        print('There is some problem status code not 200');
+      }
+    } on Exception catch (e) {
+      print(e);
+    }
+    return null;
+  }
+  Future<SignupResponse?> Signup( String name, String email, String password) async{
+    Response response;
+    try {
+      response = await restClient.post('auths/register',
+          data: {'name':name, 'email': email, 'password':password});
+      if (response.statusCode == 200) {
+        return SignupResponse.fromJson(response.data);
       } else {
         print('There is some problem status code not 200');
       }
