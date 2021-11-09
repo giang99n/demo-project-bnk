@@ -1,11 +1,12 @@
+
 import 'dart:convert';
 
-BillPaid billPaidFromJson(String str) => BillPaid.fromJson(json.decode(str));
+BillResponse billResponseFromJson(String str) => BillResponse.fromJson(json.decode(str));
 
-String billPaidToJson(BillPaid data) => json.encode(data.toJson());
+String billResponseToJson(BillResponse data) => json.encode(data.toJson());
 
-class BillPaid {
-  BillPaid({
+class BillResponse {
+  BillResponse({
     this.result,
     this.status,
   });
@@ -13,7 +14,7 @@ class BillPaid {
   List<Result>? result;
   int? status;
 
-  factory BillPaid.fromJson(Map<String, dynamic> json) => BillPaid(
+  factory BillResponse.fromJson(Map<String, dynamic> json) => BillResponse(
     result: List<Result>.from(json["result"].map((x) => Result.fromJson(x))),
     status: json["status"],
   );
@@ -27,6 +28,7 @@ class BillPaid {
 class Result {
   Result({
     this.electricityBill,
+    this.isPaid,
     this.service,
     this.time,
     this.total,
@@ -34,6 +36,7 @@ class Result {
   });
 
   String? electricityBill;
+  bool? isPaid;
   String? service;
   String? time;
   String? total;
@@ -41,6 +44,7 @@ class Result {
 
   factory Result.fromJson(Map<String, dynamic> json) => Result(
     electricityBill: json["electricity_bill"],
+    isPaid: json["is_paid"],
     service: json["service"],
     time: json["time"],
     total: json["total"],
@@ -49,6 +53,7 @@ class Result {
 
   Map<String, dynamic> toJson() => {
     "electricity_bill": electricityBill,
+    "is_paid": isPaid,
     "service": service,
     "time": time,
     "total": total,

@@ -4,6 +4,7 @@ import 'package:demo_manager/blocs/profile/profile_bloc.dart';
 import 'package:demo_manager/configs/colors.dart';
 import 'package:demo_manager/models/get_user_res.dart';
 import 'package:demo_manager/network/apis.dart';
+import 'package:demo_manager/ui/screens/home/bill/bill_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -74,9 +75,9 @@ class _BuildHomeScreenState extends State<BuildHomeScreen> {
   }
 
   _buildBody(BuildContext context) {
-
     GetUserResponse userResponse;
     Size size = MediaQuery.of(context).size;
+
     final getProfile = BlocBuilder<ProfileBloc, ProfileState>(builder: (context, state) {
       if (state is ProfileLoadingState){
         return const CircularProgressIndicator();
@@ -102,6 +103,7 @@ class _BuildHomeScreenState extends State<BuildHomeScreen> {
         return Container( child: Text("Profile"));
       }
     });
+
     return Container(
         constraints: BoxConstraints.expand(),
         decoration: BoxDecoration(
@@ -153,7 +155,12 @@ class _BuildHomeScreenState extends State<BuildHomeScreen> {
                       ),
                     ),
                     GestureDetector(
-                      onTap: (){},
+                      onTap: (){
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => BillScreen()),
+                        );
+                      },
                       child: Container(
                         margin: EdgeInsets.symmetric(vertical: 5),
                         padding:

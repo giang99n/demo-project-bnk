@@ -12,10 +12,10 @@ class BillInitState extends BillState{}
 class BillLoadingState extends BillState{}
 class BillErrorState extends BillState{}
 class BillLoadedState extends BillState{
-  final BillPaid billPaid;
+  final BillResponse bill;
 
-  BillLoadedState({required this.billPaid});
+  BillLoadedState({required this.bill});
 
   @override
-  List<Object> get props => [billPaid];
+  List<Object> get props => [bill];
 }

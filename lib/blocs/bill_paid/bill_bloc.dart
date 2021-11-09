@@ -1,4 +1,4 @@
-import 'package:demo_manager/models/get_bill_paid_res.dart';
+import 'package:demo_manager/models/bill_res.dart';
 import 'package:demo_manager/network/apis.dart';
 import 'package:equatable/equatable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -21,7 +21,7 @@ class BillBloc extends Bloc<BillEvents, BillState> {
       var data = await apiRepository.getPaidBill(token);
       if(data !=null){
         if(data!.status== 1){
-          yield BillLoadedState( billPaid:data );
+          yield BillLoadedState( bill:data );
         }else if(data.status == 0){
           //
         }
