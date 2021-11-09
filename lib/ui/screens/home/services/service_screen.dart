@@ -1,39 +1,31 @@
 import 'dart:ui';
-
-import 'package:demo_manager/blocs/profile/profile_bloc.dart';
 import 'package:demo_manager/configs/colors.dart';
-import 'package:demo_manager/models/get_user_res.dart';
 import 'package:demo_manager/network/apis.dart';
-import 'package:demo_manager/ui/screens/home/services/service_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'bill/bill_screen.dart';
-
-class HomeScreen extends StatelessWidget {
+class ServiceScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => ProfileBloc()..add(ProfileEventStated()),
-      child: WillPopScope(
-        onWillPop: () async => true,
-        child: Scaffold(body: BuildHomeScreen()),
-
-      ),
-    );
-    // Scaffold(body: BuildHomeScreen());
+    return Scaffold(body: BuildServiceScreen());
   }
 }
 
-class BuildHomeScreen extends StatefulWidget {
-  const BuildHomeScreen({Key? key}) : super(key: key);
+class BuildServiceScreen extends StatefulWidget {
+  const BuildServiceScreen({Key? key}) : super(key: key);
+
+
+  // BuildServiceScreen(){
+  //   Api api=new Api();
+  //   api.getUser("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MTFjYjhhMGM1NzM2ZjA4NTQxODcxNTAiLCJpYXQiOjE2MzYwODI3MTUsImV4cCI6MTYzNjY4NzUxNX0.mPjNjbe_0J9v7oMmVAAZTrv16mO3tq_qzYxcwYn2n48");
+  // }
+
   @override
-  _BuildHomeScreenState createState() => _BuildHomeScreenState();
+  _BuildServiceScreenState createState() => _BuildServiceScreenState();
 }
 
-class _BuildHomeScreenState extends State<BuildHomeScreen> {
-  String token = '';
+class _BuildServiceScreenState extends State<BuildServiceScreen> {
 
   @override
   void initState() {
@@ -49,13 +41,14 @@ class _BuildHomeScreenState extends State<BuildHomeScreen> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        leading: Icon(
-          Icons.menu,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_rounded),
+          onPressed: () => Navigator.of(context).pop(true),
           color: Colors.black45,
         ),
         title: Center(
           child: Text(
-            'BNK'.toUpperCase(),
+            'Dịch vụ'.toUpperCase(),
             style: Theme.of(context).textTheme.caption!.copyWith(
               color: Colors.black,
               fontSize: 20,
@@ -66,10 +59,10 @@ class _BuildHomeScreenState extends State<BuildHomeScreen> {
         actions: [
           Container(
             padding: const EdgeInsets.fromLTRB(25, 0, 15, 0),
-            child: Icon(
-              Icons.logout,
-              color: Colors.black45,
-            ),
+            // child:  Icon(
+            //   Icons.logout,
+            //   color: Colors.black45,
+            // ),
           ),
         ],
       ),
@@ -78,34 +71,7 @@ class _BuildHomeScreenState extends State<BuildHomeScreen> {
   }
 
   _buildBody(BuildContext context) {
-
-    GetUserResponse userResponse;
     Size size = MediaQuery.of(context).size;
-    final getProfile = BlocBuilder<ProfileBloc, ProfileState>(builder: (context, state) {
-      if (state is ProfileLoadingState){
-        return const CircularProgressIndicator();
-      }else if (state is ProfileSuccessState){
-        userResponse = state.user;
-        return Container(
-          alignment: Alignment.center,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(userResponse.result!.email.toString(), overflow: TextOverflow.ellipsis, style: TextStyle(fontWeight: FontWeight.bold),),
-              SizedBox(height: size.height*0.01,),
-              Text(userResponse.result!.name.toString(),overflow: TextOverflow.ellipsis, style: TextStyle(fontWeight: FontWeight.bold),),
-              SizedBox(height: size.height*0.01,),
-              Text(userResponse.result!.location.toString(),overflow: TextOverflow.ellipsis, style: TextStyle(fontWeight: FontWeight.bold),),
-
-            ],
-          ),
-        );
-      }
-      else {
-        return Container( child: Text("Profile"));
-      }
-    });
     return Container(
         constraints: BoxConstraints.expand(),
         decoration: BoxDecoration(
@@ -119,6 +85,7 @@ class _BuildHomeScreenState extends State<BuildHomeScreen> {
           child: Container(
               child: CustomScrollView(
                 slivers: <Widget>[
+
                   SliverPadding(
                     padding: const EdgeInsets.fromLTRB(25, 100, 30, 10),
                     sliver: SliverGrid.count(
@@ -127,28 +94,7 @@ class _BuildHomeScreenState extends State<BuildHomeScreen> {
                       crossAxisCount: 2,
                       children: <Widget>[
                         GestureDetector(
-                          onTap: (){
-                          },
-                          child: Container(
-                            margin: EdgeInsets.symmetric(vertical: 5),
-                            padding:
-                            EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                            width: size.width * 0.4,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              color: kPrimaryLightColor,
-                              borderRadius: BorderRadius.circular(29),
-                            ),
-                            child: getProfile,
-                          ),
-                        ),
-                        GestureDetector(
-                          onTap: (){
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => ServiceScreen()),
-                            );
-                          },
+                          onTap: (){},
                           child: Container(
                             margin: EdgeInsets.symmetric(vertical: 5),
                             padding:
@@ -166,12 +112,107 @@ class _BuildHomeScreenState extends State<BuildHomeScreen> {
                                 Align(
                                   alignment: Alignment.topLeft,
                                   child: Image.asset(
-                                    "assets/images/service.png",
+                                    "assets/images/shopping-cart.png",
                                     width: size.width * 0.1,
                                   ),
                                 ),
                                 Text(
-                                  "Dịch vụ",
+                                  "Nhận hàng hộ",
+                                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+
+                        GestureDetector(
+                          onTap: (){},
+                          child: Container(
+                            margin: EdgeInsets.symmetric(vertical: 5),
+                            padding:
+                            EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                            width: size.width * 0.4,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              color: kPrimaryLightColor,
+                              borderRadius: BorderRadius.circular(29),
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Align(
+                                  alignment: Alignment.topLeft,
+                                  child: Image.asset(
+                                    "assets/images/credit-card.png",
+                                    width: size.width * 0.1,
+                                  ),
+                                ),
+                                Text(
+                                  "Thẻ cư dân",
+                                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: (){},
+                          child: Container(
+                            margin: EdgeInsets.symmetric(vertical: 5),
+                            padding:
+                            EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                            width: size.width * 0.4,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              color: kPrimaryLightColor,
+                              borderRadius: BorderRadius.circular(29),
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Align(
+                                alignment: Alignment.topLeft,
+                                child: Image.asset(
+                                  "assets/images/people.png",
+                                  width: size.width * 0.1,
+                                ),
+                              ),
+                              Text(
+                                "Nhân khẩu",
+                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                              ),
+                            ],
+                          ),
+
+                        ),
+                        ),
+                        GestureDetector(
+                          onTap: (){},
+                          child: Container(
+                            margin: EdgeInsets.symmetric(vertical: 5),
+                            padding:
+                            EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                            width: size.width * 0.4,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              color: kPrimaryLightColor,
+                              borderRadius: BorderRadius.circular(29),
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Align(
+                                  alignment: Alignment.topLeft,
+                                  child: Image.asset(
+                                    "assets/images/car.png",
+                                    width: size.width * 0.1,
+                                  ),
+                                ),
+                                Text(
+                                  "Thẻ xe",
                                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                                 ),
                               ],
@@ -198,52 +239,17 @@ class _BuildHomeScreenState extends State<BuildHomeScreen> {
                                 Align(
                                   alignment: Alignment.topLeft,
                                   child: Image.asset(
-                                    "assets/images/Utilities.png",
+                                    "assets/images/coffee.png",
                                     width: size.width * 0.1,
                                   ),
                                 ),
                                 Text(
-                                  "Tiện ích",
+                                  "Khách lên nhà",
                                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                                 ),
                               ],
                             ),
-                          ),
-                        ),
-                        GestureDetector(
-                          onTap: (){
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => BillScreen()),
-                            );
-                          },
-                          child: Container(
-                            margin: EdgeInsets.symmetric(vertical: 5),
-                            padding:
-                            EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                            width: size.width * 0.4,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              color: kPrimaryLightColor,
-                              borderRadius: BorderRadius.circular(29),
-                            ),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Align(
-                                  alignment: Alignment.topLeft,
-                                  child: Image.asset(
-                                    "assets/images/bill.png",
-                                    width: size.width * 0.1,
-                                  ),
-                                ),
-                                Text(
-                                  "Hoá đơn",
-                                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-                                ),
-                              ],
-                            ),
+
                           ),
                         ),
                         GestureDetector(
@@ -265,47 +271,17 @@ class _BuildHomeScreenState extends State<BuildHomeScreen> {
                                 Align(
                                   alignment: Alignment.topLeft,
                                   child: Image.asset(
-                                    "assets/images/google-maps.png",
+                                    "assets/images/log-out.png",
                                     width: size.width * 0.1,
                                   ),
                                 ),
                                 Text(
-                                  "Bản đồ ",
+                                  "Thẻ ra vào",
                                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                                 ),
                               ],
                             ),
-                          ),
-                        ),
-                        GestureDetector(
-                          onTap: (){},
-                          child: Container(
-                            margin: EdgeInsets.symmetric(vertical: 5),
-                            padding:
-                            EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                            width: size.width * 0.4,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              color: kPrimaryLightColor,
-                              borderRadius: BorderRadius.circular(29),
-                            ),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Align(
-                                  alignment: Alignment.topLeft,
-                                  child: Image.asset(
-                                    "assets/images/bill.png",
-                                    width: size.width * 0.1,
-                                  ),
-                                ),
-                                Text(
-                                  "Hoá đơn",
-                                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-                                ),
-                              ],
-                            ),
+
                           ),
                         ),
 
@@ -319,8 +295,5 @@ class _BuildHomeScreenState extends State<BuildHomeScreen> {
 
   void getToken() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      token = (prefs.getString('token') ?? "");
-    });
   }
 }
