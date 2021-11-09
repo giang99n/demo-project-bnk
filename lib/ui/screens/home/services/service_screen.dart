@@ -1,8 +1,8 @@
 import 'dart:ui';
 import 'package:demo_manager/configs/colors.dart';
 import 'package:demo_manager/network/apis.dart';
+import 'package:demo_manager/ui/screens/home/services/resident_card_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ServiceScreen extends StatelessWidget {
@@ -126,7 +126,12 @@ class _BuildServiceScreenState extends State<BuildServiceScreen> {
                         ),
 
                         GestureDetector(
-                          onTap: (){},
+                          onTap: (){
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => ResidentCardScreen()),
+                            );
+                          },
                           child: Container(
                             margin: EdgeInsets.symmetric(vertical: 5),
                             padding:
