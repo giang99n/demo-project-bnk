@@ -301,7 +301,7 @@ class _BuildHomeScreenState extends State<BuildHomeScreen> {
                                   ),
                                 ),
                                 Text(
-                                  "Hoá đơn",
+                                  "Phản ánh",
                                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                                 ),
                               ],
