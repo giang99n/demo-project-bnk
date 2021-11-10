@@ -1,6 +1,10 @@
 import 'dart:ui';
+import 'package:demo_manager/blocs/register_family_members/register_family_members_bloc.dart';
 import 'package:demo_manager/configs/colors.dart';
 import 'package:demo_manager/network/apis.dart';
+import 'package:demo_manager/ui/screens/home/services/register_access_card.dart';
+import 'package:demo_manager/ui/screens/home/services/register_family_members.dart';
+import 'package:demo_manager/ui/screens/home/services/register_verhicle.dart';
 import 'package:demo_manager/ui/screens/home/services/resident_card_screen.dart';
 import 'package:demo_manager/ui/screens/home/services/ship_screen.dart';
 import 'package:flutter/material.dart';
@@ -163,7 +167,12 @@ class _BuildServiceScreenState extends State<BuildServiceScreen> {
                           ),
                         ),
                         GestureDetector(
-                          onTap: (){},
+                          onTap: (){
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => RegisterFamilyMemberScreen()),
+                            );
+                          },
                           child: Container(
                             margin: EdgeInsets.symmetric(vertical: 5),
                             padding:
@@ -195,7 +204,12 @@ class _BuildServiceScreenState extends State<BuildServiceScreen> {
                         ),
                         ),
                         GestureDetector(
-                          onTap: (){},
+                          onTap: (){
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => RegisterVerhicleScreen()),
+                            );
+                          },
                           child: Container(
                             margin: EdgeInsets.symmetric(vertical: 5),
                             padding:
@@ -259,7 +273,12 @@ class _BuildServiceScreenState extends State<BuildServiceScreen> {
                           ),
                         ),
                         GestureDetector(
-                          onTap: (){},
+                          onTap: (){
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => RegisterAccessCardScreen()),
+                            );
+                          },
                           child: Container(
                             margin: EdgeInsets.symmetric(vertical: 5),
                             padding:

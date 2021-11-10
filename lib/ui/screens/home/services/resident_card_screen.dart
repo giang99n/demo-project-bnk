@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ResidentCardScreen extends StatelessWidget {
@@ -35,7 +36,7 @@ class _BuildResidentCardScreenState extends State<BuildResidentCardScreen> {
   TextEditingController name = TextEditingController();
   TextEditingController date_of_birth = TextEditingController();
   TextEditingController indentity_card = TextEditingController();
-  TextEditingController date = TextEditingController();
+  TextEditingController datetime = TextEditingController();
   TextEditingController location = TextEditingController();
   TextEditingController relationship = TextEditingController();
 
@@ -50,7 +51,7 @@ class _BuildResidentCardScreenState extends State<BuildResidentCardScreen> {
     name.text = 'Hà Duy Hiếu';
     date_of_birth.text = '30-03-1999';
     indentity_card.text = '123456789';
-    date.text = '30-03-2014';
+    datetime.text = '30-03-2014';
     location.text = 'Thái Bình, Việt Vam';
     relationship.text = 'anh';
     // TODO: implement initState
@@ -110,7 +111,7 @@ class _BuildResidentCardScreenState extends State<BuildResidentCardScreen> {
               name.text = '';
               date_of_birth.text = '';
               indentity_card.text = '';
-              date.text = '';
+              datetime.text = '';
               location.text = '';
               relationship.text = '';
             });
@@ -191,22 +192,25 @@ class _BuildResidentCardScreenState extends State<BuildResidentCardScreen> {
                       ),
                       TextContainer(
                         child: TextFormField(
+                          onTap: () async {
+                            FocusScope.of(context).requestFocus(new FocusNode());
+                            // Show Date Picker Here
+                            DateTime? date;
+                            date = await showDatePicker(
+                                context: context,
+                                initialDate: DateTime.now(),
+                                firstDate: DateTime(2021),
+                                lastDate: DateTime(2100));
+
+                            date_of_birth.text = DateFormat('dd-MM-yyyy').format(date);
+                          },
                           controller: date_of_birth,
                           cursorColor: kPrimaryColor,
                           onChanged: (value) {},
-                          validator: (String? value) {
-                            if (value!.isEmpty) {
-                              return 'Hãy điền đủ thông tin';
-                            }
-                            return null;
-                          },
-                          onSaved: (String? value) {
-                            date_of_birth = value as TextEditingController;
-                          },
                           decoration: InputDecoration(
                             labelText: "Ngày sinh",
                             icon: Icon(
-                              Icons.person,
+                              Icons.calendar_today_sharp,
                               color: kPrimaryColor,
                             ),
                             border: InputBorder.none,
@@ -217,6 +221,7 @@ class _BuildResidentCardScreenState extends State<BuildResidentCardScreen> {
                         child: TextFormField(
                           controller: indentity_card,
                           cursorColor: kPrimaryColor,
+                          keyboardType: TextInputType.number,
                           onChanged: (value) {},
                           validator: (String? value) {
                             if (value!.isEmpty) {
@@ -239,22 +244,25 @@ class _BuildResidentCardScreenState extends State<BuildResidentCardScreen> {
                       ),
                       TextContainer(
                         child: TextFormField(
-                          controller: date,
+                          onTap: () async {
+                            FocusScope.of(context).requestFocus(new FocusNode());
+                            // Show Date Picker Here
+                            DateTime? date;
+                            date = await showDatePicker(
+                                context: context,
+                                initialDate: DateTime.now(),
+                                firstDate: DateTime(2021),
+                                lastDate: DateTime(2100));
+
+                            datetime.text = DateFormat('dd-MM-yyyy').format(date);
+                          },
+                          controller: datetime,
                           cursorColor: kPrimaryColor,
                           onChanged: (value) {},
-                          validator: (String? value) {
-                            if (value!.isEmpty) {
-                              return 'Hãy điền đủ thông tin';
-                            }
-                            return null;
-                          },
-                          onSaved: (String? value) {
-                            date = value as TextEditingController;
-                          },
                           decoration: InputDecoration(
                             labelText: "Ngày cấp",
                             icon: Icon(
-                              Icons.person,
+                              Icons.calendar_today_rounded,
                               color: kPrimaryColor,
                             ),
                             border: InputBorder.none,
@@ -278,7 +286,7 @@ class _BuildResidentCardScreenState extends State<BuildResidentCardScreen> {
                           decoration: InputDecoration(
                             labelText: "Nơi cấp",
                             icon: Icon(
-                              Icons.person,
+                              Icons.add_location_alt_rounded,
                               color: kPrimaryColor,
                             ),
                             border: InputBorder.none,
@@ -302,7 +310,7 @@ class _BuildResidentCardScreenState extends State<BuildResidentCardScreen> {
                           decoration: InputDecoration(
                             labelText: "Mối quan hệ với chủ sở hữu",
                             icon: Icon(
-                              Icons.person,
+                              Icons.group_add_outlined,
                               color: kPrimaryColor,
                             ),
                             border: InputBorder.none,
