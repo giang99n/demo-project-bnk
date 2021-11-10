@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:demo_manager/configs/colors.dart';
 import 'package:demo_manager/network/apis.dart';
 import 'package:demo_manager/ui/screens/home/services/resident_card_screen.dart';
+import 'package:demo_manager/ui/screens/home/services/ship_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -15,11 +16,6 @@ class ServiceScreen extends StatelessWidget {
 class BuildServiceScreen extends StatefulWidget {
   const BuildServiceScreen({Key? key}) : super(key: key);
 
-
-  // BuildServiceScreen(){
-  //   Api api=new Api();
-  //   api.getUser("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MTFjYjhhMGM1NzM2ZjA4NTQxODcxNTAiLCJpYXQiOjE2MzYwODI3MTUsImV4cCI6MTYzNjY4NzUxNX0.mPjNjbe_0J9v7oMmVAAZTrv16mO3tq_qzYxcwYn2n48");
-  // }
 
   @override
   _BuildServiceScreenState createState() => _BuildServiceScreenState();
@@ -94,7 +90,12 @@ class _BuildServiceScreenState extends State<BuildServiceScreen> {
                       crossAxisCount: 2,
                       children: <Widget>[
                         GestureDetector(
-                          onTap: (){},
+                          onTap: (){
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => ShipScreen()),
+                            );
+                          },
                           child: Container(
                             margin: EdgeInsets.symmetric(vertical: 5),
                             padding:

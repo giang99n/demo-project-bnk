@@ -45,6 +45,8 @@ dependencies:
   rxdart: ^0.27.2
   dropdown_search: ^0.6.1
   fluttertoast: ^8.0.8
+  intl: ^0.15.7
+  flutter_masked_text: ^0.7.0
   json_serializable: ^3.5.1
 
 

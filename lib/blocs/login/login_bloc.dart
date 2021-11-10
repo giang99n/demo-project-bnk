@@ -29,11 +29,7 @@ class LoginBloc extends Bloc<LoginEvents, LoginState> {
       }else{
         print('data null');
       }
-
-
     }
   }
-
-
 
 }

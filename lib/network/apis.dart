@@ -2,6 +2,7 @@ import 'package:demo_manager/models/bill_res.dart';
 import 'package:demo_manager/models/get_user_res.dart';
 import 'package:demo_manager/models/login_res.dart';
 import 'package:demo_manager/models/register_resident.dart';
+import 'package:demo_manager/models/ship_register_res.dart';
 import 'package:demo_manager/models/signup_res.dart';
 import 'package:dio/dio.dart';
 
@@ -99,6 +100,25 @@ class Api {
     return null;
   }
 
+  Future<ShipRegisterResponse?> shipRegister( String orderName, String value, String time, bool isChecked, String deliveryTime, {required String token} ) async {
+    Dio dio = new Dio();
+    dio.options.headers["Authorization"] = "Bearer $token";
+    Response response;
+    try {
+      print(123);
+      response = await dio.post('http://192.168.0.176:5000/api/v1/auths/ship/register',
+          data: {'orderName': orderName, 'value': value, 'time': time,'isChecked':isChecked,'deliveryTime':deliveryTime });
+      if (response.statusCode == 200) {
+        return ShipRegisterResponse.fromJson(response.data);
+      }
+      else {
+        print('There is some problem status code not 200');
+      }
+    } on Exception catch (e) {
+      print(e);
+    }
+    return null;
+  }
 
 
 }

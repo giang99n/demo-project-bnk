@@ -14,7 +14,7 @@ class TextContainer extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10),
-      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+      padding: EdgeInsets.symmetric(horizontal: 15, vertical: 1),
       width: size.width * 0.9,
       decoration: BoxDecoration(
         color: kPrimaryLightColor,

@@ -1,6 +1,7 @@
 import 'dart:ui';
 
-import 'package:demo_manager/blocs/bill_paid/bill_bloc.dart';
+import 'package:demo_manager/blocs/bill/bill_bloc.dart';
+import 'package:demo_manager/configs/colors.dart';
 import 'package:demo_manager/configs/constants.dart';
 import 'package:demo_manager/models/bill_res.dart';
 import 'package:flutter/material.dart';
@@ -111,8 +112,73 @@ class _BuildBillBodyState extends State<BuildBillBody>
   }
 
   Widget _billUnpaid(BuildContext context) {
-    return Container(
-      child: Text('1'),
+    Size size = MediaQuery.of(context).size;
+    return  Container(
+      margin: const EdgeInsets.only(top: 10),
+      child: BlocBuilder<BillBloc, BillState>(builder: (context, state) {
+        if (state is BillLoadingState) {
+          return Container(
+              alignment: Alignment.topCenter,
+              height: size.height * 0.18,
+              child: const CircularProgressIndicator());
+        } else if (state is BillLoadedState) {
+          List<Result>? billUnpaid = state.bill.result!
+              .where((item) => item.isPaid == false)
+              .toList();
+          return Container(
+            alignment: Alignment.center,
+            child: Column(
+              children: [
+                Container(
+                  height: size.height* 0.7,
+                  child: ListView.builder(
+                    itemBuilder: (BuildContext buildContext, int index) {
+                      return Padding(
+                        padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                        child: Card(
+                          child: ListTile(
+                            title: Text(billUnpaid[index].time.toString()),
+                            subtitle: Text("Tổng:" + billUnpaid[index].total.toString(),
+                                style: TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.bold)),
+                            leading: Icon(Icons.list_alt_rounded),
+                            trailing: Icon(Icons.chevron_right),
+                          ),
+                        ),
+                      );
+                    },
+                    itemCount: billUnpaid.length,
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.symmetric(vertical: 10),
+                  width: size.width * 0.8,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(20),
+                    child: ElevatedButton(
+                      child: Text(
+                        "THANH TOÁN",
+                        style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),
+                      ),
+                      onPressed: () {
+                      },
+                      style: ElevatedButton.styleFrom(
+                          primary: Colors.redAccent,
+                          padding: EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+                          textStyle: TextStyle(
+                              color: Colors.white, fontSize: 14, fontWeight: FontWeight.w500)),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+
+          );
+
+        } else {
+          return Container();
+        }
+      }),
     );
   }
 
@@ -124,13 +190,14 @@ class _BuildBillBodyState extends State<BuildBillBody>
       child: BlocBuilder<BillBloc, BillState>(builder: (context, state) {
         if (state is BillLoadingState) {
           return Container(
-            alignment: Alignment.topCenter,
-              height: size.height*0.18,
-              child: const CircularProgressIndicator()
-          );
+              alignment: Alignment.topCenter,
+              height: size.height * 0.18,
+              child: const CircularProgressIndicator());
         } else if (state is BillLoadedState) {
           billResponse = state.bill;
-          List<Result>? billPaid = billResponse.result!.where((item) => item.isPaid==true).toList();
+          List<Result>? billPaid = billResponse.result!
+              .where((item) => item.isPaid == true)
+              .toList();
 
           void showDialog(int index) {
             showGeneralDialog(
@@ -143,8 +210,8 @@ class _BuildBillBodyState extends State<BuildBillBody>
                 return Align(
                   alignment: Alignment.center,
                   child: Container(
-                    height: size.height*0.5,
-                    margin: EdgeInsets.only( left: 12, right: 12),
+                    height: size.height * 0.5,
+                    margin: EdgeInsets.only(left: 12, right: 12),
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(40),
@@ -152,25 +219,50 @@ class _BuildBillBodyState extends State<BuildBillBody>
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        SizedBox(height: 8,),
-                        Text( "Thời gian: "+ billPaid[index].time.toString(),style: TextStyle(fontSize: 18, color: Colors.black), ),
-                        Container(
-                          alignment: Alignment.center,
-                          child:Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text( "Tiền điện: "+ billPaid[index].electricityBill.toString(),style: TextStyle(fontSize: 16)),
-                              SizedBox(height: 8,),
-                              Text( "Tiền nước: "+ billPaid[index].electricityBill.toString(),style: TextStyle(fontSize: 16)),
-                              SizedBox(height: 8,),
-                              Text( "Tiền dịch vụ: "+ billPaid[index].service.toString(),style: TextStyle(fontSize: 16)),
-
-                            ],
-                          )
+                        SizedBox(
+                          height: 8,
                         ),
-                        Text( "Tổng: "+ billPaid[index].total.toString(),style: TextStyle(fontSize: 18, color: Colors.black),),
-                        SizedBox(height: 8,),
+                        Text(
+                          "Thời gian: " + billPaid[index].time.toString(),
+                          style: TextStyle(fontSize: 18, color: Colors.black),
+                        ),
+                        Container(
+                            alignment: Alignment.center,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                    "Tiền điện: " +
+                                        billPaid[index]
+                                            .electricityBill
+                                            .toString(),
+                                    style: TextStyle(fontSize: 16)),
+                                SizedBox(
+                                  height: 8,
+                                ),
+                                Text(
+                                    "Tiền nước: " +
+                                        billPaid[index]
+                                            .electricityBill
+                                            .toString(),
+                                    style: TextStyle(fontSize: 16)),
+                                SizedBox(
+                                  height: 8,
+                                ),
+                                Text(
+                                    "Tiền dịch vụ: " +
+                                        billPaid[index].service.toString(),
+                                    style: TextStyle(fontSize: 16)),
+                              ],
+                            )),
+                        Text(
+                          "Tổng: " + billPaid[index].total.toString(),
+                          style: TextStyle(fontSize: 18, color: Colors.black),
+                        ),
+                        SizedBox(
+                          height: 8,
+                        ),
                       ],
                     ),
                   ),
@@ -178,45 +270,42 @@ class _BuildBillBodyState extends State<BuildBillBody>
               },
               transitionBuilder: (_, anim, __, child) {
                 return SlideTransition(
-                  position: Tween(begin: Offset(0, 1), end: Offset(0, 0)).animate(anim),
+                  position: Tween(begin: Offset(0, 1), end: Offset(0, 0))
+                      .animate(anim),
                   child: child,
                 );
               },
             );
           }
+
           return Container(
-              alignment: Alignment.center,
-              child: ListView.builder(
-                itemBuilder: (BuildContext buildContext, int index) {
-                  return Padding(
-                    padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
-                    child: Card(
-                      child: ListTile(
-                        onTap: (){
-                          showDialog(index);
-                        },
-                        title: Text(billPaid[index].time.toString()),
-                        subtitle: Text(
-                            "Tổng:"+billPaid[index].total.toString(),
-                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                        leading: Icon(Icons.list_alt_rounded),
-                        trailing: Icon(Icons.chevron_right),
-                      ),
+            alignment: Alignment.center,
+            child: ListView.builder(
+              itemBuilder: (BuildContext buildContext, int index) {
+                return Padding(
+                  padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                  child: Card(
+                    child: ListTile(
+                      onTap: () {
+                        showDialog(index);
+                      },
+                      title: Text(billPaid[index].time.toString()),
+                      subtitle: Text("Tổng:" + billPaid[index].total.toString(),
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold)),
+                      leading: Icon(Icons.list_alt_rounded),
+                      trailing: Icon(Icons.chevron_right),
                     ),
-                  );
-
-                },
-                itemCount: billPaid.length,
-              ),
-
-
+                  ),
+                );
+              },
+              itemCount: billPaid.length,
+            ),
           );
         } else {
           return Container();
         }
-
       }),
     );
   }
-
 }
