@@ -6,6 +6,7 @@ import 'package:demo_manager/models/ship_list_order_res.dart';
 import 'package:demo_manager/models/ship_register_res.dart';
 import 'package:demo_manager/models/signup_res.dart';
 import 'package:dio/dio.dart';
+import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 import 'dio_client.dart';
 
@@ -50,6 +51,7 @@ class Api {
     Response response;
     Dio dio = new Dio();
     dio.options.headers["Authorization"] = "Bearer $token";
+    dio.interceptors.add(PrettyDioLogger());
     try {
       response = await dio.post('http://192.168.0.176:5000/api/v1/auths/resident/register',
           data: {'name': name});
@@ -69,6 +71,7 @@ class Api {
   Future<GetUserResponse?> getUser(String token) async {
     Dio dio = new Dio();
     dio.options.headers["Authorization"] = "Bearer $token";
+    dio.interceptors.add(PrettyDioLogger());
     Response response;
     try {
       response = await dio.get('http://192.168.0.176:5000/api/v1/auths/verify',);
@@ -86,6 +89,7 @@ class Api {
   Future<BillResponse?> getPaidBill(String token) async {
     Dio dio = new Dio();
     dio.options.headers["Authorization"] = "Bearer $token";
+    dio.interceptors.add(PrettyDioLogger());
     Response response;
     try {
       response =
@@ -103,6 +107,7 @@ class Api {
   Future<ShipListOrderResponse?> getShipListOrder(String token) async {
     Dio dio = new Dio();
     dio.options.headers["Authorization"] = "Bearer $token";
+    dio.interceptors.add(PrettyDioLogger());
     Response response;
     try {
       response =
@@ -121,6 +126,7 @@ class Api {
   Future<ShipRegisterResponse?> shipRegister( String orderName, String value, String time, bool isChecked, String deliveryTime, {required String token} ) async {
     Dio dio = new Dio();
     dio.options.headers["Authorization"] = "Bearer $token";
+    dio.interceptors.add(PrettyDioLogger());
     Response response;
     try {
       print(123);
