@@ -144,11 +144,8 @@ class _BodyState extends State<Body> {
                       onPressed: () {
                         if(_formkey.currentState!.validate())
                         {
-                          print("successful");
                           return loginBloc!.add(LoginButtonPressed(
                               email: email.text, password: password.text));
-                        }else{
-                          print("UnSuccessfull");
                         }
 
                       },
