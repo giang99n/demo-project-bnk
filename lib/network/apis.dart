@@ -1,6 +1,7 @@
 import 'package:demo_manager/models/bill_res.dart';
 import 'package:demo_manager/models/get_user_res.dart';
 import 'package:demo_manager/models/login_res.dart';
+import 'package:demo_manager/models/register_resident.dart';
 import 'package:demo_manager/models/signup_res.dart';
 import 'package:dio/dio.dart';
 
@@ -34,6 +35,24 @@ class Api {
           data: {'name': name, 'email': email, 'password': password});
       if (response.statusCode == 200) {
         return SignupResponse.fromJson(response.data);
+      }
+      else {
+        print('There is some problem status code not 200');
+      }
+    } on Exception catch (e) {
+      print(e);
+    }
+    return null;
+  }
+  Future<RegisterResidentResponse?> RegisterResident({required String token, required String name}) async {
+    Response response;
+    Dio dio = new Dio();
+    dio.options.headers["Authorization"] = "Bearer $token";
+    try {
+      response = await dio.post('http://192.168.0.176:5000/api/v1/auths/resident/register',
+          data: {'name': name});
+      if (response.statusCode == 200) {
+        return RegisterResidentResponse.fromJson(response.data);
       }
       else {
         print('There is some problem status code not 200');

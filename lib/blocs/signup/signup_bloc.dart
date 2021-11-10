@@ -20,7 +20,6 @@ class SignupBloc extends Bloc<SignupEvents, SignupState> {
       var data = await apiRepository.Signup(event.name,event.email, event.password);
       if(data !=null){
         if(data!.status == 1){
-          pref.setString('status', data!.status.toString() ?? "" );
           yield SignupSuccessState();
         }else if(data.status == 0){
           print("user exists");

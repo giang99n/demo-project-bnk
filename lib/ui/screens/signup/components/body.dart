@@ -64,244 +64,243 @@ class _BodyState extends State<Body> {
         },
         child: Background(
           child: SingleChildScrollView(
-            child: Form(
-              key: _formkey,
-              child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
-                  child: Text(
-                    "SIGNUP",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                  ),
-                ),
-                SvgPicture.asset(
-                  "assets/icons/signup.svg",
-                  height: size.height * 0.3,
-                ),
-                TextFieldContainer(
-                  child: TextFormField(
-                    controller: name,
-                    cursorColor: kPrimaryColor,
-                    onChanged: (value){},
-                    validator: (String ?value){
-                      if(value!.isEmpty)
-                      {
-                        return 'Please Enter Name';
-                      }
-                      return null;
-                    },
-                    onSaved: (String ?value){
-                      name = value as TextEditingController;
-                    },
-                    decoration: InputDecoration(
-                      icon: Icon(
-                        Icons.person,
-                        color: kPrimaryColor,
-                      ),
-                      hintText: "Name",
-                      border: InputBorder.none,
-                    ),
-                  ),
-                ),
-                TextFieldContainer(
-                  child: TextFormField(
-                    controller: email,
-                    cursorColor: kPrimaryColor,
-                    validator: (String ?value){
-                      if(value!.isEmpty)
-                      {
-                        return 'Please a Enter';
-                      }
-                      else if(!RegExp(r'^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)+(.)+[a-zA-Z0-9-]*$').hasMatch(value)){
-                        return 'Please a valid Email';
-                      }
-                    },
-                    onSaved: (String ?value){
-                      email = value as TextEditingController;
-                    },
-                    decoration: InputDecoration(
-                      icon: Icon(
-                        Icons.person,
-                        color: kPrimaryColor,
-                      ),
-                      hintText: "Email",
-                      border: InputBorder.none,
-                    ),
-                  ),
-                ),
-                TextFieldContainer(
-                  child: TextFormField(
-                    obscureText: true,
-                    controller: password,
-                    onChanged: (value){},
-                    validator: (String ?value){
-                      if(value!.isEmpty)
-                      {
-                        return 'Please a Enter Password';
-                      } else if(value!.length<6){
-                        return 'password is too short ';
-                      }
-                      return null;
-                    },
-                    cursorColor: kPrimaryColor,
-                    decoration: InputDecoration(
-                      hintText: "Password",
-                      icon: Icon(
-                        Icons.lock,
-                        color: kPrimaryColor,
-                      ),
-                      suffixIcon: Icon(
-                        Icons.visibility,
-                        color: kPrimaryColor,
-                      ),
-                      border: InputBorder.none,
-                    ),
-                  ),
-                ),
-                TextFieldContainer(
-                  child: TextFormField(
-                    controller: confirmPassword,
-                    obscureText: true,
-                    cursorColor: kPrimaryColor,
-                    onChanged: (value){},
-                    validator: (String ?value){
-                      if(value!.isEmpty)
-                      {
-                        return 'Please re-enter password';
-                      }
-                      print(password.text);
-
-                      print(confirmPassword.text);
-
-                      if(password.text!=confirmPassword.text){
-                        return "Password does not match";
-                      }
-
-                      return null;
-                    },
-                    decoration: InputDecoration(
-                      hintText: "Confirm Password",
-                      icon: Icon(
-                        Icons.lock,
-                        color: kPrimaryColor,
-                      ),
-                      suffixIcon: Icon(
-                        Icons.visibility,
-                        color: kPrimaryColor,
-                      ),
-                      border: InputBorder.none,
-                    ),
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.symmetric(vertical: 10),
-                  width: size.width * 0.8,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(29),
-                    child: ElevatedButton(
-                      child: Text(
-                        "SIGN UP",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      onPressed: (){
-                        if(_formkey.currentState!.validate())
-                        {
-                          print("successful");
-                          return signupBloc!.add(SignupButtonPressed(
-                              name: name.text, email: email.text, password: password.text));;
-                        }else{
-                          print("UnSuccessfull");
-                        }
-                      },
-                      style: ElevatedButton.styleFrom(
-                          primary: kPrimaryColor,
-                          padding: EdgeInsets.symmetric(horizontal: 40, vertical: 20),
-                          textStyle: TextStyle(
-                              color: Colors.white, fontSize: 14, fontWeight: FontWeight.w500)),
-                    ),
-                  ),
-                ),
-
-                msg,
-                Row(
+              child: Form(
+                key: _formkey,
+                child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Text(
-                      "Already have an Account ? ",
-                      style: TextStyle(color: kPrimaryColor),
-                    ),
-                    GestureDetector(
-                      onTap: (){
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(builder: (context) => LoginScreen()),
-                        );
-                      },
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
                       child: Text(
-                        "Sign In",
-                        style: TextStyle(
-                          color: kPrimaryColor,
-                          fontWeight: FontWeight.bold,
+                        "SIGNUP",
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                      ),
+                    ),
+                    SvgPicture.asset(
+                      "assets/icons/signup.svg",
+                      height: size.height * 0.3,
+                    ),
+                    TextFieldContainer(
+                      child: TextFormField(
+                        controller: name,
+                        cursorColor: kPrimaryColor,
+                        onChanged: (value){},
+                        validator: (String ?value){
+                          if(value!.isEmpty)
+                          {
+                            return 'Hãy điền đủ thông tin';
+                          }
+                          return null;
+                        },
+                        onSaved: (String ?value){
+                          name = value as TextEditingController;
+                        },
+                        decoration: InputDecoration(
+                          icon: Icon(
+                            Icons.person,
+                            color: kPrimaryColor,
+                          ),
+                          hintText: "Name",
+                          border: InputBorder.none,
                         ),
+                      ),
+                    ),
+                    TextFieldContainer(
+                      child: TextFormField(
+                        controller: email,
+                        cursorColor: kPrimaryColor,
+                        validator: (String ?value){
+                          if(value!.isEmpty)
+                          {
+                            return 'Please a Enter';
+                          }
+                          else if(!RegExp(r'^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)+(.)+[a-zA-Z0-9-]*$').hasMatch(value)){
+                            return 'Please a valid Email';
+                          }
+                        },
+                        onSaved: (String ?value){
+                          email = value as TextEditingController;
+                        },
+                        decoration: InputDecoration(
+                          icon: Icon(
+                            Icons.person,
+                            color: kPrimaryColor,
+                          ),
+                          hintText: "Email",
+                          border: InputBorder.none,
+                        ),
+                      ),
+                    ),
+                    TextFieldContainer(
+                      child: TextFormField(
+                        obscureText: true,
+                        controller: password,
+                        onChanged: (value){},
+                        validator: (String ?value){
+                          if(value!.isEmpty)
+                          {
+                            return 'Please a Enter Password';
+                          } else if(value!.length<6){
+                            return 'password is too short ';
+                          }
+                          return null;
+                        },
+                        cursorColor: kPrimaryColor,
+                        decoration: InputDecoration(
+                          hintText: "Password",
+                          icon: Icon(
+                            Icons.lock,
+                            color: kPrimaryColor,
+                          ),
+                          suffixIcon: Icon(
+                            Icons.visibility,
+                            color: kPrimaryColor,
+                          ),
+                          border: InputBorder.none,
+                        ),
+                      ),
+                    ),
+                    TextFieldContainer(
+                      child: TextFormField(
+                        controller: confirmPassword,
+                        obscureText: true,
+                        cursorColor: kPrimaryColor,
+                        onChanged: (value){},
+                        validator: (String ?value){
+                          if(value!.isEmpty)
+                          {
+                            return 'Please re-enter password';
+                          }
+                          print(password.text);
+
+                          print(confirmPassword.text);
+
+                          if(password.text!=confirmPassword.text){
+                            return "Password does not match";
+                          }
+
+                          return null;
+                        },
+                        decoration: InputDecoration(
+                          hintText: "Confirm Password",
+                          icon: Icon(
+                            Icons.lock,
+                            color: kPrimaryColor,
+                          ),
+                          suffixIcon: Icon(
+                            Icons.visibility,
+                            color: kPrimaryColor,
+                          ),
+                          border: InputBorder.none,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.symmetric(vertical: 10),
+                      width: size.width * 0.8,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(29),
+                        child: ElevatedButton(
+                          child: Text(
+                            "SIGN UP",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          onPressed: (){
+                            if(_formkey.currentState!.validate())
+                            {
+                              print("successful");
+                              return signupBloc!.add(SignupButtonPressed(
+                                  name: name.text, email: email.text, password: password.text));
+                            }else{
+                              print("UnSuccessfull");
+                            }
+                          },
+                          style: ElevatedButton.styleFrom(
+                              primary: kPrimaryColor,
+                              padding: EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+                              textStyle: TextStyle(
+                                  color: Colors.white, fontSize: 14, fontWeight: FontWeight.w500)),
+                        ),
+                      ),
+                    ),
+                    msg,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          "Already have an Account ? ",
+                          style: TextStyle(color: kPrimaryColor),
+                        ),
+                        GestureDetector(
+                          onTap: (){
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(builder: (context) => LoginScreen()),
+                            );
+                          },
+                          child: Text(
+                            "Sign In",
+                            style: TextStyle(
+                              color: kPrimaryColor,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                    Container(
+                      margin: EdgeInsets.symmetric(vertical: size.height * 0.02),
+                      width: size.width * 0.8,
+                      child: Row(
+                        children: <Widget>[
+                          Expanded(
+                            child: Divider(
+                              color: Color(0xFFD9D9D9),
+                              height: 1.5,
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: Text(
+                              "OR",
+                              style: TextStyle(
+                                color: kPrimaryColor,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: Divider(
+                              color: Color(0xFFD9D9D9),
+                              height: 1.5,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          SocalIcon(
+                            iconSrc: "assets/icons/facebook.svg",
+                            press: () {},
+                          ),
+                          SocalIcon(
+                            iconSrc: "assets/icons/twitter.svg",
+                            press: () {},
+                          ),
+                          SocalIcon(
+                            iconSrc: "assets/icons/google-plus.svg",
+                            press: () {},
+                          ),
+                        ],
                       ),
                     )
                   ],
                 ),
-                Container(
-                  margin: EdgeInsets.symmetric(vertical: size.height * 0.02),
-                  width: size.width * 0.8,
-                  child: Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: Divider(
-                          color: Color(0xFFD9D9D9),
-                          height: 1.5,
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
-                        child: Text(
-                          "OR",
-                          style: TextStyle(
-                            color: kPrimaryColor,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: Divider(
-                          color: Color(0xFFD9D9D9),
-                          height: 1.5,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      SocalIcon(
-                        iconSrc: "assets/icons/facebook.svg",
-                        press: () {},
-                      ),
-                      SocalIcon(
-                        iconSrc: "assets/icons/twitter.svg",
-                        press: () {},
-                      ),
-                      SocalIcon(
-                        iconSrc: "assets/icons/google-plus.svg",
-                        press: () {},
-                      ),
-                    ],
-                  ),
-                )
-              ],
-            ),
-            )
+              )
           ),
         ),
       ),
