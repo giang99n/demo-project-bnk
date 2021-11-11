@@ -4,6 +4,7 @@ import '../../configs/colors.dart';
 
 class TextContainer extends StatelessWidget {
   final Widget child;
+
   const TextContainer({
     Key? key,
     required this.child,

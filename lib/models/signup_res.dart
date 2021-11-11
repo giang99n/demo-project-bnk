@@ -1,20 +1,21 @@
 import 'dart:convert';
 
-SignupResponse SignupResponseFromJson(String str) => SignupResponse.fromJson(json.decode(str));
+SignupResponse SignupResponseFromJson(String str) =>
+    SignupResponse.fromJson(json.decode(str));
 
 String SignupResponseToJson(SignupResponse data) => json.encode(data.toJson());
 
 class SignupResponse {
-  Result ?result;
-  int ?status;
-  int ?code;
-  String ?message;
+  Result? result;
+  int? status;
+  int? code;
+  String? message;
 
   SignupResponse({this.result, this.status, this.code, this.message});
 
   SignupResponse.fromJson(Map<String, dynamic> json) {
     result =
-    json['result'] != null ? new Result.fromJson(json['result']) : null;
+        json['result'] != null ? new Result.fromJson(json['result']) : null;
     status = json['status'];
     code = json['code'];
     message = json['message'];
@@ -33,11 +34,11 @@ class SignupResponse {
 }
 
 class Result {
-  String ?id;
-  String ?createdAt;
-  String ?email;
-  String ?name;
-  String ?updatedAt;
+  String? id;
+  String? createdAt;
+  String? email;
+  String? name;
+  String? updatedAt;
 
   Result({this.id, this.createdAt, this.email, this.name, this.updatedAt});
 
@@ -59,8 +60,6 @@ class Result {
     return data;
   }
 }
-
-
 
 // class SignupResponse {
 //   String? result;

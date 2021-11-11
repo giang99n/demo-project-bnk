@@ -9,7 +9,7 @@ class SignUpScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context)=> SignupBloc(SignupInitState(), Api()))
+        BlocProvider(create: (context) => SignupBloc(SignupInitState(), Api()))
       ],
       child: Body(),
     );

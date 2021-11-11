@@ -3,6 +3,7 @@ import 'package:demo_manager/ui/Screens/Login/login_screen.dart';
 import 'package:demo_manager/ui/Screens/Signup/signup_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+
 class WelcomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -66,9 +67,12 @@ class WelcomeScreen extends StatelessWidget {
                         },
                         style: ElevatedButton.styleFrom(
                             primary: kPrimaryColor,
-                            padding: EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 40, vertical: 20),
                             textStyle: TextStyle(
-                                color: Colors.white, fontSize: 14, fontWeight: FontWeight.w500)),
+                                color: Colors.white,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500)),
                       ),
                     ),
                   ),
@@ -94,9 +98,12 @@ class WelcomeScreen extends StatelessWidget {
                         },
                         style: ElevatedButton.styleFrom(
                             primary: kPrimaryColor,
-                            padding: EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 40, vertical: 20),
                             textStyle: TextStyle(
-                                color: Colors.white, fontSize: 14, fontWeight: FontWeight.w500)),
+                                color: Colors.white,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500)),
                       ),
                     ),
                   ),

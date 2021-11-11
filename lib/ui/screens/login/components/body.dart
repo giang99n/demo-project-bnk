@@ -9,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
-
 class Body extends StatefulWidget {
   const Body({Key? key}) : super(key: key);
 
@@ -18,13 +17,13 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-  TextEditingController email =TextEditingController();
-  TextEditingController password =TextEditingController();
+  TextEditingController email = TextEditingController();
+  TextEditingController password = TextEditingController();
   final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
 
+  LoginBloc? loginBloc;
 
-  LoginBloc? loginBloc ;
-   Api? api;
+  Api? api;
 
   @override
   void initState() {
@@ -39,7 +38,7 @@ class _BodyState extends State<Body> {
     Size size = MediaQuery.of(context).size;
 
     final msg = BlocBuilder<LoginBloc, LoginState>(builder: (context, state) {
-      if (state is LoginLoadingState){
+      if (state is LoginLoadingState) {
         return const CircularProgressIndicator();
       } else if (state is LoginErrorState) {
         return Text(state.message);
@@ -60,14 +59,14 @@ class _BodyState extends State<Body> {
         },
         child: Background(
           child: SingleChildScrollView(
-            child: Form(
-              key: _formkey,
-              child: Column(
+              child: Form(
+            key: _formkey,
+            child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Text(
                   "LOGIN",
-                  style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                 ),
                 SizedBox(height: size.height * 0.03),
                 SvgPicture.asset(
@@ -78,17 +77,17 @@ class _BodyState extends State<Body> {
                 TextFieldContainer(
                   child: TextFormField(
                     controller: email,
-                    onChanged: (value){},
-                    validator: (String ?value){
-                      if(value!.isEmpty)
-                      {
+                    onChanged: (value) {},
+                    validator: (String? value) {
+                      if (value!.isEmpty) {
                         return 'Please a Enter';
-                      }
-                      else if(!RegExp(r'^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)+(.)+[a-zA-Z0-9-]*$').hasMatch(value)){
+                      } else if (!RegExp(
+                              r'^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)+(.)+[a-zA-Z0-9-]*$')
+                          .hasMatch(value)) {
                         return 'Please a valid Email';
                       }
                     },
-                    onSaved: (String ?value){
+                    onSaved: (String? value) {
                       email = value as TextEditingController;
                     },
                     cursorColor: kPrimaryColor,
@@ -106,12 +105,11 @@ class _BodyState extends State<Body> {
                   child: TextFormField(
                     controller: password,
                     obscureText: true,
-                    onChanged: (value){},
-                    validator: (String ?value){
-                      if(value!.isEmpty)
-                      {
+                    onChanged: (value) {},
+                    validator: (String? value) {
+                      if (value!.isEmpty) {
                         return 'Please a Enter Password';
-                      } else if(value!.length<6){
+                      } else if (value!.length < 6) {
                         return 'password is too short ';
                       }
                       return null;
@@ -142,18 +140,19 @@ class _BodyState extends State<Body> {
                         style: TextStyle(color: Colors.white),
                       ),
                       onPressed: () {
-                        if(_formkey.currentState!.validate())
-                        {
+                        if (_formkey.currentState!.validate()) {
                           return loginBloc!.add(LoginButtonPressed(
                               email: email.text, password: password.text));
                         }
-
                       },
                       style: ElevatedButton.styleFrom(
                           primary: kPrimaryColor,
-                          padding: EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 40, vertical: 20),
                           textStyle: TextStyle(
-                              color: Colors.white, fontSize: 14, fontWeight: FontWeight.w500)),
+                              color: Colors.white,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500)),
                     ),
                   ),
                 ),
@@ -171,7 +170,8 @@ class _BodyState extends State<Body> {
                       onTap: () {
                         Navigator.pushReplacement(
                           context,
-                          MaterialPageRoute(builder: (context) => SignUpScreen()),
+                          MaterialPageRoute(
+                              builder: (context) => SignUpScreen()),
                         );
                       },
                       child: Text(
@@ -186,12 +186,9 @@ class _BodyState extends State<Body> {
                 ),
               ],
             ),
-            )
-          ),
+          )),
         ),
       ),
     );
-
-
   }
 }

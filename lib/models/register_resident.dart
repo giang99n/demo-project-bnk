@@ -1,18 +1,20 @@
 import 'dart:convert';
 
-RegisterResidentResponse RegisterResidentResponseFromJson(String str) => RegisterResidentResponse.fromJson(json.decode(str));
+RegisterResidentResponse RegisterResidentResponseFromJson(String str) =>
+    RegisterResidentResponse.fromJson(json.decode(str));
 
-String RegisterResidentResponseToJson(RegisterResidentResponse data) => json.encode(data.toJson());
+String RegisterResidentResponseToJson(RegisterResidentResponse data) =>
+    json.encode(data.toJson());
 
 class RegisterResidentResponse {
-  Result ?result;
-  int ?status;
+  Result? result;
+  int? status;
 
   RegisterResidentResponse({this.result, this.status});
 
   RegisterResidentResponse.fromJson(Map<String, dynamic> json) {
     result =
-    json['result'] != null ? new Result.fromJson(json['result']) : null;
+        json['result'] != null ? new Result.fromJson(json['result']) : null;
     status = json['status'];
   }
 
@@ -27,22 +29,22 @@ class RegisterResidentResponse {
 }
 
 class Result {
-  String ?date;
-  String ?dateOfBirth;
-  String ?indentityCard;
-  String ?location;
-  String ?name;
-  String ?relationship;
-  String ?sex;
+  String? date;
+  String? dateOfBirth;
+  String? indentityCard;
+  String? location;
+  String? name;
+  String? relationship;
+  String? sex;
 
   Result(
       {this.date,
-        this.dateOfBirth,
-        this.indentityCard,
-        this.location,
-        this.name,
-        this.relationship,
-        this.sex});
+      this.dateOfBirth,
+      this.indentityCard,
+      this.location,
+      this.name,
+      this.relationship,
+      this.sex});
 
   Result.fromJson(Map<String, dynamic> json) {
     date = json['date'];

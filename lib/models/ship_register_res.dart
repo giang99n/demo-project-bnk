@@ -4,9 +4,11 @@
 
 import 'dart:convert';
 
-ShipRegisterResponse shipRegisterResponseFromJson(String str) => ShipRegisterResponse.fromJson(json.decode(str));
+ShipRegisterResponse shipRegisterResponseFromJson(String str) =>
+    ShipRegisterResponse.fromJson(json.decode(str));
 
-String shipRegisterResponseToJson(ShipRegisterResponse data) => json.encode(data.toJson());
+String shipRegisterResponseToJson(ShipRegisterResponse data) =>
+    json.encode(data.toJson());
 
 class ShipRegisterResponse {
   ShipRegisterResponse({
@@ -17,20 +19,16 @@ class ShipRegisterResponse {
 
   Result? result;
   int? status;
-  String? message="";
+  String? message = "";
 
-  factory ShipRegisterResponse.fromJson(Map<String, dynamic> json) => ShipRegisterResponse(
-    result: Result.fromJson(json["result"]),
-    status: json["status"],
-      message: json["message"]
-  );
+  factory ShipRegisterResponse.fromJson(Map<String, dynamic> json) =>
+      ShipRegisterResponse(
+          result: Result.fromJson(json["result"]),
+          status: json["status"],
+          message: json["message"]);
 
-  Map<String, dynamic> toJson() => {
-    "result": result!.toJson(),
-    "status": status,
-    "message": message
-
-  };
+  Map<String, dynamic> toJson() =>
+      {"result": result!.toJson(), "status": status, "message": message};
 }
 
 class Result {
@@ -49,18 +47,18 @@ class Result {
   String? value;
 
   factory Result.fromJson(Map<String, dynamic> json) => Result(
-    deliveryTime: json["delivery_time"],
-    isChecked: json["is_checked"],
-    orderName: json["order_name"],
-    time: json["time"],
-    value: json["value"],
-  );
+        deliveryTime: json["delivery_time"],
+        isChecked: json["is_checked"],
+        orderName: json["order_name"],
+        time: json["time"],
+        value: json["value"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "delivery_time": deliveryTime,
-    "is_checked": isChecked,
-    "order_name": orderName,
-    "time": time,
-    "value": value,
-  };
+        "delivery_time": deliveryTime,
+        "is_checked": isChecked,
+        "order_name": orderName,
+        "time": time,
+        "value": value,
+      };
 }

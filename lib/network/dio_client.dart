@@ -2,13 +2,12 @@ import 'package:demo_manager/configs/constants.dart';
 import 'package:dio/dio.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
-
 class RestClient {
   RestClient(
-      this._dio, {
-        int? receiveTimeout,
-        int? connectTimeout,
-      }) {
+    this._dio, {
+    int? receiveTimeout,
+    int? connectTimeout,
+  }) {
     _dio.options = BaseOptions(
       baseUrl: AppConstants.baseUrl,
       receiveTimeout: receiveTimeout ?? AppConstants.receiveTimeout,
@@ -16,18 +15,17 @@ class RestClient {
     );
     _dio.interceptors.add(PrettyDioLogger());
   }
+
   final Dio _dio;
-
-
 
   // Get:-----------------------------------------------------------------------
   Future<Response> get(
-      String uri, {
-        Map<String, dynamic>? queryParameters,
-        Options? options,
-        CancelToken? cancelToken,
-        ProgressCallback? onReceiveProgress,
-      }) async {
+    String uri, {
+    Map<String, dynamic>? queryParameters,
+    Options? options,
+    CancelToken? cancelToken,
+    ProgressCallback? onReceiveProgress,
+  }) async {
     try {
       final response = await _dio.get(
         uri,
@@ -44,14 +42,14 @@ class RestClient {
 
   // Post:----------------------------------------------------------------------
   Future<dynamic> post(
-      String uri, {
-        dynamic data,
-        Map<String, dynamic>? queryParameters,
-        Options? options,
-        CancelToken? cancelToken,
-        ProgressCallback? onSendProgress,
-        ProgressCallback? onReceiveProgress,
-      }) async {
+    String uri, {
+    dynamic data,
+    Map<String, dynamic>? queryParameters,
+    Options? options,
+    CancelToken? cancelToken,
+    ProgressCallback? onSendProgress,
+    ProgressCallback? onReceiveProgress,
+  }) async {
     try {
       final response = await _dio.post(
         uri,
@@ -70,14 +68,14 @@ class RestClient {
 
   // Put:----------------------------------------------------------------------
   Future<dynamic> put(
-      String uri, {
-        dynamic data,
-        Map<String, dynamic>? queryParameters,
-        Options? options,
-        CancelToken? cancelToken,
-        ProgressCallback? onSendProgress,
-        ProgressCallback? onReceiveProgress,
-      }) async {
+    String uri, {
+    dynamic data,
+    Map<String, dynamic>? queryParameters,
+    Options? options,
+    CancelToken? cancelToken,
+    ProgressCallback? onSendProgress,
+    ProgressCallback? onReceiveProgress,
+  }) async {
     try {
       final response = await _dio.put(
         uri,
@@ -96,12 +94,12 @@ class RestClient {
 
   // Delete:--------------------------------------------------------------------
   Future<dynamic> delete(
-      String uri, {
-        dynamic data,
-        Map<String, dynamic>? queryParameters,
-        Options? options,
-        CancelToken? cancelToken,
-      }) async {
+    String uri, {
+    dynamic data,
+    Map<String, dynamic>? queryParameters,
+    Options? options,
+    CancelToken? cancelToken,
+  }) async {
     try {
       final response = await _dio.delete(
         uri,

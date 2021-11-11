@@ -1,7 +1,6 @@
 part of 'ship_register_bloc.dart';
 
 abstract class ShipRegisterEvents extends Equatable {
-
   @override
   List<Object> get props => [];
 }
@@ -15,6 +14,6 @@ class ShipRegisterButtonPressed extends ShipRegisterEvents {
   final bool isChecked;
   final String deliveryTime;
 
-  ShipRegisterButtonPressed(this.orderName, this.value, this.time, this.isChecked, this.deliveryTime);
-
+  ShipRegisterButtonPressed(
+      this.orderName, this.value, this.time, this.isChecked, this.deliveryTime);
 }
